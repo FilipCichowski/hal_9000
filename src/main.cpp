@@ -1,37 +1,30 @@
 #include <Arduino.h>
+#include <ErriezDS1302.h>
 
 #include "../include/BMP180.h"
+#include "../include/RTC_DS.h"
 #include "../include/SD_Card.h"
 
-// Adafruit_BMP085 bmp;
+ErriezDS1302 ds_1302 = ErriezDS1302(7, 6, 5);
 
-BMP180 bmp;
+BMP180 bmp = BMP180();
 BMP180_t bmp_data;
+
+RTC_DS rtc = RTC_DS();
+RTC_Time_t rtc_time;
 
 void setup() {
     Serial.begin(9600);
-
-    // Card card(4);
-    // card.init();
-    // card.log("za gorami za lasami", "test");
-    // card.log(2137, "test");
-
-    // if (!bmp.begin()) {
-    //     Serial.println("Could not find a valid BMP085 sensor, check wiring!");
-    //     while (1) {
-    //     }
-    // }
-
     bmp.init();
+    rtc.init(ds_1302);
 }
 
 void loop() {
-    // Serial.print("Temperature = ");
-    // Serial.print(bmp.readTemperature());
-    // Serial.println(" *C");
-    // delay(500);
-    bmp_data = bmp.read_data();
-    Serial.print("Temperature: ");
-    Serial.print(bmp_data.temp);
-    Serial.print("\n");
+    rtc.get_time(ds_1302, rtc_time);
+    Serial.println(rtc_time.hour);
+    Serial.println(rtc_time.min);
+    Serial.println(rtc_time.sec);
+
+    // Serial.println(second);
+    delay(500);
 }
