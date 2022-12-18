@@ -8,7 +8,7 @@
 
 class Card {
    public:
-    Card(std::uint8_t csPin);
+    Card(const std::uint8_t csPin);
     bool init();
     void open_file(const char *filename);
     void close_file(const char *filename);

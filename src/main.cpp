@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <ErriezDS1302.h>
 
 #include "../include/BMP180.h"
 #include "../include/RTC_DS.h"
@@ -25,6 +24,5 @@ void loop() {
     Serial.println(rtc_time.min);
     Serial.println(rtc_time.sec);
 
-    // Serial.println(second);
     delay(500);
 }
